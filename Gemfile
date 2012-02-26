@@ -36,3 +36,9 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+# for user authentication
+gem 'devise'
+
+# for layout and helpers generation
+gem 'nifty-generators', :group => :development
