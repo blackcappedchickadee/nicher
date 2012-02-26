@@ -29,10 +29,10 @@ class HomeController < ApplicationController
           #getting the folders which are inside this @current_folder  
           @folders = @current_folder.children  
     
-          if @assets
+         # if @assets
             #show only files under this current folder  
-            @assets = @current_folder.assets.order("uploaded_file_file_name desc")
-          end
+             @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
+        #  end
           
           render :action => "index"  
         else  

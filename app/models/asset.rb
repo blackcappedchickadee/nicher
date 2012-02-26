@@ -3,9 +3,6 @@ class Asset < ActiveRecord::Base
   
   belongs_to :folder
   
-  has_many :assets, :dependent => :destroy 
-  
-  
   # set up "uploaded file" field as attached_file (using Paperclip)
   has_attached_file :uploaded_file, 
                    :url => "/assets/get/:id",  
@@ -21,5 +18,6 @@ class Asset < ActiveRecord::Base
   def file_size  
       uploaded_file_file_size  
   end
+  
   
 end

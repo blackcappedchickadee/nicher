@@ -1,5 +1,13 @@
 <% title "Upload a file" %>  
+
+<%= render :partial => "home/breadcrumbs" %> 
   
 <%= render 'form' %>  
   
-<p><%= link_to "Back to List", root_url %></p>
+<p>  
+<% if @asset.folder %>  
+   <%= link_to "Back to '#{@asset.folder.name}' Folder", browse_path(@asset.folder) %>  
+<% else %>  
+   <%= link_to "Back", root_url %>  
+<% end %>  
+</p>
