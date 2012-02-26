@@ -1,4 +1,6 @@
 Nicher::Application.routes.draw do
+  resources :folders
+
   resources :assets
 
   devise_for :users
@@ -62,6 +64,8 @@ Nicher::Application.routes.draw do
   
   Nicher::Application.routes.draw do  
       
+  resources :folders
+
   resources :assets
 
   devise_for :users
