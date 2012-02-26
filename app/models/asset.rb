@@ -15,4 +15,8 @@ class Asset < ActiveRecord::Base
     uploaded_file_file_name
   end 
   
+  def file_size  
+      uploaded_file_file_size  
+  end
+  
 end
