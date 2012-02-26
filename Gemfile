@@ -42,3 +42,8 @@ gem 'devise'
 
 # for layout and helpers generation
 gem 'nifty-generators', :group => :development
+
+# for uploading files
+gem 'paperclip'
+
+gem "mocha", :group => :test

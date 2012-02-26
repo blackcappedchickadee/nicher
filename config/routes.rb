@@ -1,4 +1,6 @@
 Nicher::Application.routes.draw do
+  resources :assets
+
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -60,9 +62,14 @@ Nicher::Application.routes.draw do
   
   Nicher::Application.routes.draw do  
       
+  resources :assets
+
   devise_for :users
 
     root :to => "home#index"  
   end
+  
+  #this route is for file downloads  
+  match "assets/get/:id" => "assets#get", :as => "download"
   
 end

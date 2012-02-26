@@ -10,4 +10,6 @@ class User < ActiveRecord::Base
   # Setup validations for the model
   validates :email, :presence => true, :uniqueness => true 
   
+  has_many :assets 
+  
 end
