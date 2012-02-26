@@ -1,0 +1,5 @@
+== Nicher
+
+A small document manager.
+
+More information will be provided as features are added.
