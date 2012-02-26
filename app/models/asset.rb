@@ -1,7 +1,10 @@
 class Asset < ActiveRecord::Base
-  attr_accessible :user_id, :uploaded_file
+  attr_accessible :user_id, :uploaded_file, :folder_id
   
-  belongs_to :user 
+  belongs_to :folder
+  
+  has_many :assets, :dependent => :destroy 
+  
   
   # set up "uploaded file" field as attached_file (using Paperclip)
   has_attached_file :uploaded_file, 

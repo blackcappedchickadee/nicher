@@ -76,4 +76,10 @@ Nicher::Application.routes.draw do
   #this route is for file downloads  
   match "assets/get/:id" => "assets#get", :as => "download"
   
+  #this route is for simple urls in breadcrumbs
+  match "browse/:folder_id" => "home#browse", :as => "browse"  
+  
+  #this route is for creating folders insiide another folder  
+  match "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"
+  
 end
