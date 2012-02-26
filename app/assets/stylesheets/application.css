@@ -134,3 +134,11 @@ body {
 .file.asset_details:hover  {  
     background:url("file.png") no-repeat scroll left center #EFEFEF;  
 }
+.breadcrumbs {  
+   margin:10px 0;  
+   font-weight:bold;  
+}  
+.breadcrumbs a {  
+   color:#1D96EF;  
+   text-decoration:none;  
+}
