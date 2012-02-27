@@ -2,12 +2,7 @@ class HomeController < ApplicationController
     
   def index  
      if user_signed_in?  
-       ##load current_user's folders  
-       #@folders = current_user.folders.order("name desc")
-       
-       ##load current_user's files (assets)
-       #@assets = current_user.assets.order("uploaded_file_file_name desc")  
-       
+
        #show only root folders (which have no parent folders)  
        @folders = current_user.folders.roots   
 
@@ -29,10 +24,8 @@ class HomeController < ApplicationController
           #getting the folders which are inside this @current_folder  
           @folders = @current_folder.children  
     
-         # if @assets
-            #show only files under this current folder  
-             @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
-        #  end
+          #show only files under this current folder  
+          @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
           
           render :action => "index"  
         else  

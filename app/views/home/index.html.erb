@@ -24,7 +24,8 @@
    </div>  
    <div class="asset_list">  
 	   <!-- Listing Folders -->
-       <% @folders.each do |folder| %>  
+       <% if @folders != nil
+          @folders.each do |folder| %>  
 	      <div class="asset_details folder">  
 		        <div class="file_name"><%= link_to folder.name, browse_path(folder) %></div>  
 		        <div class="file_size">-</div>  
@@ -42,10 +43,11 @@
 		        </div>  
 		    </div>
 	 
-	   <% end %>	
+	   <% end 
+     end
+	  %>	
 
 	   <!-- Listing Files -->
-	   
        <% if @assets != nil
 		  @assets.each do |asset| %>  
            <div class="asset_details file">  

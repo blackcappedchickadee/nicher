@@ -3,7 +3,6 @@ class FoldersController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    #@folders = Folder.all
     @folders = current_user.folders
   end
 
@@ -13,8 +12,8 @@ class FoldersController < ApplicationController
 
   def new
     @folder = current_user.folders.new
-       #if there is "folder_id" param, we know that we are under a folder, thus, we will essentially create a subfolder  
-       if params[:folder_id] #if we want to create a folder inside another folder  
+         #if there is "folder_id" param, we know that we are under a folder, thus, we will essentially create a subfolder  
+         if params[:folder_id] #if we want to create a folder inside another folder  
 
          #we still need to set the @current_folder to make the buttons working fine  
          @current_folder = current_user.folders.find(params[:folder_id])  
@@ -47,12 +46,6 @@ class FoldersController < ApplicationController
 
   def update
     @folder = current_user.folders.find(params[:id]) 
-    
-    #if @folder.update_attributes(params[:folder])
-    #  redirect_to @folder, :notice  => "Successfully updated folder."
-    #else
-    #  render :action => 'edit'
-    #end
      local_notice_update = "Successfully updated folder."
      @folder.update_attributes(params[:folder])
      @parent_folder = @folder.parent #grabbing the parent folder

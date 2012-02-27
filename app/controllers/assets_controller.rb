@@ -1,6 +1,5 @@
 class AssetsController < ApplicationController
   def index
-    # @assets = Asset.all
     if current_user != nil
       @assets = current_user.assets
     else 
@@ -9,7 +8,6 @@ class AssetsController < ApplicationController
   end
 
   def show
-    #@asset = Asset.find(params[:id])
     @asset = current_user.assets.find(params[:id])
   end
   
@@ -30,8 +28,6 @@ class AssetsController < ApplicationController
   end
 
   def new
-    #@asset = Asset.new
-    #@asset = current_user.assets.new
     @asset = current_user.assets.build      
     if params[:folder_id] #if we want to upload a file inside another folder  
        @current_folder = current_user.folders.find(params[:folder_id])  
@@ -56,12 +52,10 @@ class AssetsController < ApplicationController
   end
 
   def edit
-    #@asset = Asset.find(params[:id])
     @asset = current_user.assets.find(params[:id])
   end
 
   def update
-    #@asset = Asset.find(params[:id])
     @asset = current_user.assets.find(params[:id])
     if @asset.update_attributes(params[:asset])
       redirect_to @asset, :notice  => "Successfully updated asset."
