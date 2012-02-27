@@ -3,3 +3,5 @@
 A small document manager.
 
 More information will be provided as features are added.
+
+Nicher is a French verb meaning "to nest". 
