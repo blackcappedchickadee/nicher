@@ -8,6 +8,9 @@ class HomeController < ApplicationController
 
        #show only root files which has no "folder_id"  
        @assets = current_user.assets.where("folder_id is NULL").order("uploaded_file_file_name desc")
+       
+       @url_prior_to_edit = request.fullpath
+       session[:url_prior_to_edit] = @url_prior_to_edit
             
       end
   end  
@@ -32,7 +35,10 @@ class HomeController < ApplicationController
           flash[:error] = "Access is only allowed to your own folders."  
           redirect_to root_url  
         end  
-      
+        
+        @url_prior_to_edit = request.fullpath
+        session[:url_prior_to_edit] = @url_prior_to_edit
+        
       end
   end
   

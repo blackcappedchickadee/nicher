@@ -3,9 +3,5 @@
 <%= render 'form' %>
 
 <p>
-
-  <%= link_to "Show", @asset %> |
-  <%= link_to "View All", assets_path %>
-  
-<%= link_to "Back", :back %>
+<%= link_to "Back", session[:url_prior_to_edit] %>
 </p>

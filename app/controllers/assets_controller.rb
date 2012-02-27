@@ -36,6 +36,8 @@ class AssetsController < ApplicationController
 
   def create
       @asset = current_user.assets.build(params[:asset])  
+      @asset.file_version = 1
+      @asset.is_master_version = 1
        if @asset.save  
         flash[:notice] = "Successfully uploaded the file."  
 
@@ -53,16 +55,19 @@ class AssetsController < ApplicationController
     #@asset = current_user.assets.find(params[:id])
     @parent_id = 0
     @folder_id = 0
+    
     if current_user != nil
       @asset = current_user.assets.find(params[:id])
+    
       if @asset
-        #are we at root or inside a sub-folder?
+        #are we at root or inside a sub-folder? all this is just for breadcrumbs, and if we change 
+        #behaviour (modal jQuery - or to simply redirect back to prior view), this may not be needed
         if @asset.folder != nil
           #sub-folder
-           @folder = current_user.folders.find(params[:folder_id])  
-           @current_folder = @folder.parent    #this is just for breadcrumbs
-           @parent_id = @folder.parent_id
-           @folder_id = @current_folder.folder_id
+           #@folder = current_user.folders.find(params[:folder_id])  
+           #@current_folder = @folder.parent    #this is just for breadcrumbs
+           #@parent_id = @folder.parent_id
+           #@folder_id = @current_folder.folder_id
         else
           #root
         end
@@ -77,9 +82,43 @@ class AssetsController < ApplicationController
   end
 
   def update
-    @asset = current_user.assets.find(params[:id])
-    if @asset.update_attributes(params[:asset])
-      redirect_to @asset, :notice  => "Successfully updated asset."
+    @asset_old = current_user.assets.find(params[:id])
+    @asset_old.file_version += 1 #increment the version
+    @asset_old.is_master_version = 0 # no longer the master version
+    
+    #TODO: technically, an update is actually an update of the "old" asset and a 
+    #save since we're always wanting to save a new version 
+    # for version control
+    if @asset_old.save 
+      #Make a deep copy
+      #May run into probs w/the File attachment?
+#      old_file_path =  @asset_old.uploaded_file.path
+#      old_file = File.new( @asset_old.uploaded_file.path)
+      @asset_new = @asset_old.dup :except => :uploaded_file
+      #@asset_new.uploaded_file = @asset_old.uploaded_file
+      #@asset_new.uploaded_file = @asset_old.uploaded_file.to_file
+      
+     
+#      puts 'old_file_path = ' + old_file_path
+      
+#      new_file_path = old_file_path.gsub(/(@asset_old.id)/,'xxx' )
+      
+      @asset_new.file_version += 1 #increments the version
+      @asset_new.is_master_version = 1 #bit indicator for new version
+      
+#      FileUtils.cp @asset_old.uploaded_file.path, new_file_path
+      
+#      @asset_new.uploaded_file = File.new(new_file_path)
+      @asset_new.id = nil
+      puts 'done with cloning ================='
+      
+      if @asset_new.save
+        @asset_new.update_attributes(params[:asset]) #investigate a better way...w/save
+        
+        puts 'save of new asset seems to work?'
+        #redirect_to @asset, :notice  => "Successfully updated asset."
+        redirect_to session[:url_prior_to_edit], :notice  => "Successfully updated asset."
+      end
     else
       render :action => 'edit'
     end

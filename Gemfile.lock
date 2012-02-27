@@ -40,6 +40,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    deep_cloning (2.0.0)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -125,6 +126,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_tree
   coffee-rails (~> 3.2.1)
+  deep_cloning (~> 2.0.0)
   devise
   jquery-rails
   mocha

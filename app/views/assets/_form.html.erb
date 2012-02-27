@@ -4,6 +4,7 @@
 	<% if @asset.new_record? %>  
     	<%= f.label :uploaded_file, "File" %><br />
 	    <%= f.file_field :uploaded_file %>
+
 	<% else %>
 		<%= f.label :uploaded_file_file_name, "Filename" %>
 		<%= f.text_field :uploaded_file_file_name %><br />
@@ -25,7 +26,8 @@
   </p>
 
   <p>
-	<% if @asset.new_record? %>  
+	<% if @asset.new_record? %> 
+	   <%= f.hidden_field :folder_id %>  
 	   <%= f.submit "Upload File" %>  
 	<% else %>  
 	   <%= f.submit "Update Details" %>  

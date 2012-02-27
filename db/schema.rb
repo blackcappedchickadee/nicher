@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227015543) do
+ActiveRecord::Schema.define(:version => 20120227042733) do
 
   create_table "assets", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "uploaded_file_file_name"
     t.string   "uploaded_file_content_type"
     t.integer  "uploaded_file_file_size"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120227015543) do
     t.string   "file_comments"
     t.integer  "file_version"
     t.integer  "file_storage_id"
+    t.binary   "is_master_version",          :limit => 1
   end
 
   add_index "assets", ["file_storage_id"], :name => "index_assets_on_file_storage_id"

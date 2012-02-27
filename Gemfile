@@ -46,8 +46,11 @@ gem 'nifty-generators', :group => :development
 # for uploading files
 gem 'paperclip'
 
-gem "mocha", :group => :test
+gem 'mocha', :group => :test
 
 #For nested folders  
-gem "acts_as_tree"
+gem 'acts_as_tree'
+
+#For deep cloning (versioning)
+gem 'deep_cloning', '~> 2.0.0'
 
