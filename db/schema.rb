@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226210149) do
+ActiveRecord::Schema.define(:version => 20120227015543) do
 
   create_table "assets", :force => true do |t|
     t.integer  "user_id"
@@ -22,10 +22,23 @@ ActiveRecord::Schema.define(:version => 20120226210149) do
     t.integer  "uploaded_file_file_size"
     t.datetime "uploaded_file_updated_at"
     t.integer  "folder_id"
+    t.string   "file_comments"
+    t.integer  "file_version"
+    t.integer  "file_storage_id"
   end
 
+  add_index "assets", ["file_storage_id"], :name => "index_assets_on_file_storage_id"
   add_index "assets", ["folder_id"], :name => "index_assets_on_folder_id"
   add_index "assets", ["user_id"], :name => "index_assets_on_user_id"
+
+  create_table "file_storages", :force => true do |t|
+    t.integer  "file_storage_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "file_storage_description"
+  end
+
+  add_index "file_storages", ["file_storage_id"], :name => "index_file_storages_on_file_storage_id"
 
   create_table "folders", :force => true do |t|
     t.string   "name"

@@ -1,9 +1,34 @@
 <%= form_for @asset,  :html => {:multipart => true} do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :uploaded_file, "File" %><br />
-    <%= f.file_field :uploaded_file %>
+	<% if @asset.new_record? %>  
+    	<%= f.label :uploaded_file, "File" %><br />
+	    <%= f.file_field :uploaded_file %>
+	<% else %>
+		<%= f.label :uploaded_file_file_name, "Filename" %>
+		<%= f.text_field :uploaded_file_file_name %><br />
+	 
+		<%= f.label :file_size, "Size" %>
+		<%= f.label :file_size_val, number_to_human_size(@asset.file_size, :precision => 2) %><br/>
+		
+      
+		<%= f.label :file_last_updated, "Last Updated" %>
+		<%= f.label :file_last_updated_val, @asset.updated_at %><br/>
+		
+
+	<% end %>
+
   </p>
-   <%= f.hidden_field :folder_id %> 
-  <p><%= f.submit "Upload" %></p>
+  <p>
+    <%= f.label :file_comments, "Comments" %><br />
+    <%= f.text_area :file_comments %>
+  </p>
+
+  <p>
+	<% if @asset.new_record? %>  
+	   <%= f.submit "Upload File" %>  
+	<% else %>  
+	   <%= f.submit "Update Details" %>  
+	<% end %>
+  </p>
 <% end %>

@@ -1,0 +1,12 @@
+<% title "File Storage" %>
+
+<p>
+  <strong>File Storage:</strong>
+  <%= @file_storage.file_storage_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_file_storage_path(@file_storage) %> |
+  <%= link_to "Destroy", @file_storage, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", file_storages_path %>
+</p>

@@ -161,16 +161,16 @@ body {
     float:rightright;  
     font-size:11px;  
 }  
-.share, .rename, .download, .delete{  
+.share, .rename, .download, .delete, .edit {  
     float:left;   
 }  
-.asset_details .share a,.asset_details .rename a,.asset_details .download a,.asset_details .delete a{  
+.asset_details .share a,.asset_details .rename a,.asset_details .download a,.asset_details .delete a, .asset_details .edit a{  
     border: 1px solid #CFE9FF;  
     font-size: 11px;  
     margin-left: 5px;  
     padding: 0 2px;  
 }  
-.asset_details .share a:hover,.asset_details .rename a:hover,.asset_details .download a:hover,.asset_details .delete a:hover{  
+.asset_details .share a:hover,.asset_details .rename a:hover,.asset_details .download a:hover,.asset_details .delete a:hover, .asset_details .edit a:hover{  
     border:1px solid #8FCDFF;  
 }  
   

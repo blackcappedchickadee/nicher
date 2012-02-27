@@ -14,7 +14,6 @@ class AssetsController < ApplicationController
   #this action will let the users download the files (after a simple authorization check)  
   def get  
     if current_user != nil
-      puts 'test - not nil'
       asset = current_user.assets.find_by_id(params[:id])  
       if asset  
           send_file asset.uploaded_file.path, :type => asset.uploaded_file_content_type  
@@ -32,8 +31,7 @@ class AssetsController < ApplicationController
     if params[:folder_id] #if we want to upload a file inside another folder  
        @current_folder = current_user.folders.find(params[:folder_id])  
        @asset.folder_id = @current_folder.id  
-    end
-    
+    end  
   end
 
   def create
@@ -52,7 +50,30 @@ class AssetsController < ApplicationController
   end
 
   def edit
-    @asset = current_user.assets.find(params[:id])
+    #@asset = current_user.assets.find(params[:id])
+    @parent_id = 0
+    @folder_id = 0
+    if current_user != nil
+      @asset = current_user.assets.find(params[:id])
+      if @asset
+        #are we at root or inside a sub-folder?
+        if @asset.folder != nil
+          #sub-folder
+           @folder = current_user.folders.find(params[:folder_id])  
+           @current_folder = @folder.parent    #this is just for breadcrumbs
+           @parent_id = @folder.parent_id
+           @folder_id = @current_folder.folder_id
+        else
+          #root
+        end
+       
+      else
+          flash[:error] = "Access is only allowed to your own assets."   
+          redirect_to assets_path
+      end
+    else
+       redirect_to new_user_session_path 
+    end
   end
 
   def update

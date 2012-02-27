@@ -1,4 +1,6 @@
 Nicher::Application.routes.draw do
+  resources :file_storages
+
   resources :folders
 
   resources :assets
@@ -64,6 +66,8 @@ Nicher::Application.routes.draw do
   
   Nicher::Application.routes.draw do  
       
+  resources :file_storages
+
   resources :folders
 
   resources :assets
@@ -87,5 +91,8 @@ Nicher::Application.routes.draw do
   
   #for renaming a folder  
   match "browse/:folder_id/rename" => "folders#edit", :as => "rename_folder"
+  
+  #for editing a file 
+  match "assets/edit/:id" => "assets#edit", :as => "edit_file"
   
 end

@@ -1,0 +1,17 @@
+<% title "File Storages" %>
+
+<table>
+  <tr>
+    <th>File Storage</th>
+  </tr>
+  <% for file_storage in @file_storages %>
+    <tr>
+      <td><%= file_storage.file_storage_id %></td>
+      <td><%= link_to "Show", file_storage %></td>
+      <td><%= link_to "Edit", edit_file_storage_path(file_storage) %></td>
+      <td><%= link_to "Destroy", file_storage, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New File Storage", new_file_storage_path %></p>

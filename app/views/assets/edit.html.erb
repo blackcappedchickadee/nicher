@@ -1,8 +1,11 @@
-<% title "Edit Asset" %>
+<% title "Edit File" %>
 
 <%= render 'form' %>
 
 <p>
+
   <%= link_to "Show", @asset %> |
   <%= link_to "View All", assets_path %>
+  
+<%= link_to "Back", :back %>
 </p>
