@@ -5,5 +5,11 @@
     <%= f.text_field :name %>
   </p>
    <%= f.hidden_field :parent_id %>  
-  <p><%= f.submit "Create Folder" %></p>
+  <p>
+  	<% if @folder.new_record? %>  
+	   <%= f.submit "Create Folder" %>  
+	<% else %>  
+	   <%= f.submit "Rename Folder" %>  
+	<% end %>
+  </p>
 <% end %>

@@ -21,7 +21,7 @@ class AssetsController < ApplicationController
       if asset  
           send_file asset.uploaded_file.path, :type => asset.uploaded_file_content_type  
         else  
-          flash[:error] = "Don't be cheeky! Mind your own assets!"  
+          flash[:error] = "Access is only allowed to your own assets."   
           redirect_to assets_path  
         end
     else 
@@ -71,10 +71,18 @@ class AssetsController < ApplicationController
   end
 
   def destroy
-    #@asset = Asset.find(params[:id])
-    @asset = current_user.assets.find(params[:id])
-    @asset.destroy
-    redirect_to assets_url, :notice => "Successfully destroyed asset."
+      @asset = current_user.assets.find(params[:id])  
+      @parent_folder = @asset.folder #grabbing the parent folder before deleting the record 
+      deleted_file_name = @asset.file_name
+      @asset.destroy  
+      local_notice_destroy = "Successfully deleted the file named #{deleted_file_name}."  
+
+      #redirect to a relevant path depending on the parent folder  
+      if @parent_folder  
+       redirect_to browse_path(@parent_folder), :notice => local_notice_destroy
+      else  
+       redirect_to root_url, :notice => local_notice_destroy
+      end
   end
   
 end

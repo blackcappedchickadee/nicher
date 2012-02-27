@@ -36,7 +36,7 @@ class HomeController < ApplicationController
           
           render :action => "index"  
         else  
-          flash[:error] = "Don't be cheeky! Mind your own folders!"  
+          flash[:error] = "Access is only allowed to your own folders."  
           redirect_to root_url  
         end  
       
