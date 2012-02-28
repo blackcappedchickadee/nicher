@@ -7,7 +7,7 @@ class HomeController < ApplicationController
        @folders = current_user.folders.roots   
 
        #show only root files which has no "folder_id"  
-       @assets = current_user.assets.where("folder_id is NULL").order("uploaded_file_file_name desc")
+       @assets = current_user.assets.where("folder_id is NULL AND is_master_version = 1").order("uploaded_file_file_name desc")
        
        @url_prior_to_edit = request.fullpath
        session[:url_prior_to_edit] = @url_prior_to_edit
@@ -28,7 +28,9 @@ class HomeController < ApplicationController
           @folders = @current_folder.children  
     
           #show only files under this current folder  
-          @assets = @current_folder.assets.order("uploaded_file_file_name desc")  
+          #@assets = @current_folder.assets.order("uploaded_file_file_name desc")
+          @assets = @current_folder.assets.where("is_master_version = 1").order("uploaded_file_file_name desc")
+            
           
           render :action => "index"  
         else  
