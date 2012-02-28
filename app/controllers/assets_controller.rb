@@ -82,41 +82,30 @@ class AssetsController < ApplicationController
   end
 
   def update
-    @asset_old = current_user.assets.find(params[:id])
-    @asset_old.file_version += 1 #increment the version
-    @asset_old.is_master_version = 0 # no longer the master version
     
-    #TODO: technically, an update is actually an update of the "old" asset and a 
-    #save since we're always wanting to save a new version 
-    # for version control
-    if @asset_old.save 
-      #Make a deep copy
-      #May run into probs w/the File attachment?
-#      old_file_path =  @asset_old.uploaded_file.path
-#      old_file = File.new( @asset_old.uploaded_file.path)
-      @asset_new = @asset_old.dup :except => :uploaded_file
-      #@asset_new.uploaded_file = @asset_old.uploaded_file
-      #@asset_new.uploaded_file = @asset_old.uploaded_file.to_file
+    # We mark the current file as being an "archive" at this point - since we version
+    # everything that is involved with an update. This means archiving the prior version, 
+    # and creating a new (asset_new) version of the asset/file, now marked as master. 
+    
+    asset_old = current_user.assets.find(params[:id])
+    asset_old.file_version += 1 #increment the version
+    asset_old.is_master_version = 0 # no longer the master version
+    
+    if asset_old.save 
+
+      local_file = asset_old.uploaded_file.to_file
+
+      asset_new = Asset.new
+      asset_new.user_id = asset_old.user_id
+      asset_new.uploaded_file_file_name = asset_old.uploaded_file_file_name
+      asset_new.folder_id = asset_old.folder_id
+      asset_new.file_comments = params[:file_comments]
+      asset_new.file_version = asset_old.file_version + 1 #increments the version
+      asset_new.is_master_version = 1 # this new file is now the master version
       
-     
-#      puts 'old_file_path = ' + old_file_path
+      asset_new.uploaded_file = local_file
       
-#      new_file_path = old_file_path.gsub(/(@asset_old.id)/,'xxx' )
-      
-      @asset_new.file_version += 1 #increments the version
-      @asset_new.is_master_version = 1 #bit indicator for new version
-      
-#      FileUtils.cp @asset_old.uploaded_file.path, new_file_path
-      
-#      @asset_new.uploaded_file = File.new(new_file_path)
-      @asset_new.id = nil
-      puts 'done with cloning ================='
-      
-      if @asset_new.save
-        @asset_new.update_attributes(params[:asset]) #investigate a better way...w/save
-        
-        puts 'save of new asset seems to work?'
-        #redirect_to @asset, :notice  => "Successfully updated asset."
+      if asset_new.save
         redirect_to session[:url_prior_to_edit], :notice  => "Successfully updated asset."
       end
     else
