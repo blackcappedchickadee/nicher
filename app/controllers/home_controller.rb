@@ -6,7 +6,7 @@ class HomeController < ApplicationController
        #show only root folders (which have no parent folders)  
        @folders = current_user.folders.roots   
 
-       #show only root files which has no "folder_id"  
+       #show only root files which has no "folder_id", and limit the view to master version files
        @assets = current_user.assets.where("folder_id is NULL AND is_master_version = 1").order("uploaded_file_file_name desc")
        
        @url_prior_to_edit = request.fullpath
@@ -27,11 +27,9 @@ class HomeController < ApplicationController
           #getting the folders which are inside this @current_folder  
           @folders = @current_folder.children  
     
-          #show only files under this current folder  
-          #@assets = @current_folder.assets.order("uploaded_file_file_name desc")
+          #show only files under this current folder, and limit the view to master version files
           @assets = @current_folder.assets.where("is_master_version = 1").order("uploaded_file_file_name desc")
-            
-          
+
           render :action => "index"  
         else  
           flash[:error] = "Access is only allowed to your own folders."  
