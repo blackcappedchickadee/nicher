@@ -95,4 +95,5 @@ Nicher::Application.routes.draw do
   #for editing a file 
   match "assets/edit/:id" => "assets#edit", :as => "edit_file"
   
+  
 end

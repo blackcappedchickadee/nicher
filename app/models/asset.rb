@@ -18,6 +18,22 @@ class Asset < ActiveRecord::Base
   validates_attachment_size :uploaded_file, :less_than => 100.megabytes #todo -- pull this in from environment
   validates_attachment_presence :uploaded_file
   
+  #implement full text searching
+  searchable do
+    text :uploaded_file_file_name, :boost =>5 #the filename is 5x more "important" in a search. Relevance search.
+    text :file_comments, :uploaded_month
+    
+    #allow filtering by user_id
+    integer :user_id
+    #allow filtering by is_master_version
+    integer :is_master_version
+    
+  end
+  
+  def uploaded_month
+    uploaded_file_updated_at.strftime("%B %Y")
+  end
+  
   def file_name
     uploaded_file_file_name
   end 

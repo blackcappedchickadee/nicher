@@ -37,20 +37,29 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-# for user authentication
+# For user authentication
 gem 'devise'
 
-# for layout and helpers generation
+# For layout and helpers generation
 gem 'nifty-generators', :group => :development
 
-# for uploading files
+# For uploading files
 gem 'paperclip'
 
 gem 'mocha', :group => :test
 
-#For nested folders  
+# For nested folders  
 gem 'acts_as_tree'
 
-#For deep cloning (versioning)
+# For deep cloning (versioning)
 gem 'deep_cloning', '~> 2.0.0'
+
+# for full text indexing of site and documents (paperclip attachments, in our case)
+gem 'sunspot_rails'
+gem 'progress_bar'
+
+group :development do
+   gem 'sunspot_solr'
+end
+
 

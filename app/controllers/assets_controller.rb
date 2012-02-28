@@ -1,10 +1,35 @@
 class AssetsController < ApplicationController
   def index
+    
+    from_search = false
+    
     if current_user != nil
-      @assets = current_user.assets
+      
+      # need to detect user's authorization and possibly limit scope!
+      # for now, we'll restrict to the signed in user
+      @search = Asset.search do
+        fulltext params[:search]
+        all_of do
+          with(:user_id).equal_to(current_user.id)
+          with(:is_master_version).equal_to(0) #fix this!
+        end
+        from_search = true
+      end
+      
+      if from_search
+        @assets = @search.results
+      else
+        assets = current_user.assets
+      end
+
     else 
       redirect_to new_user_session_path
     end
+  end
+  
+  def search
+    puts 'test!'
+    
   end
 
   def show
@@ -14,6 +39,7 @@ class AssetsController < ApplicationController
   #this action will let the users download the files (after a simple authorization check)  
   def get  
     if current_user != nil
+      
       asset = current_user.assets.find_by_id(params[:id])  
       if asset  
           send_file asset.uploaded_file.path, :type => asset.uploaded_file_content_type  
