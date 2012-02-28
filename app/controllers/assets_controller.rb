@@ -99,7 +99,12 @@ class AssetsController < ApplicationController
       asset_new.user_id = asset_old.user_id
       asset_new.uploaded_file_file_name = asset_old.uploaded_file_file_name
       asset_new.folder_id = asset_old.folder_id
-      asset_new.file_comments = params[:file_comments]
+      
+      tmp_hash = params[:asset]
+      posted_comments = tmp_hash[:file_comments]
+      
+      puts 'posted_comments = ' + posted_comments
+      asset_new.file_comments = posted_comments
       asset_new.file_version = asset_old.file_version + 1 #increments the version
       asset_new.is_master_version = 1 # this new file is now the master version
       
