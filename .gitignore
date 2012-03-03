@@ -19,6 +19,8 @@
 
 # Ignore Solr
 /solr/**/*
+/public/**/*
+
 
 # OS Generated
 .DS_Store*

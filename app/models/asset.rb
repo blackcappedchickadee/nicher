@@ -23,6 +23,8 @@ class Asset < ActiveRecord::Base
     text :uploaded_file_file_name, :boost =>5 #the filename is 5x more "important" in a search. Relevance search.
     text :file_comments, :uploaded_month
     
+    has_attached_file :uploaded_file
+    
     #allow filtering by user_id
     integer :user_id
     #allow filtering by is_master_version

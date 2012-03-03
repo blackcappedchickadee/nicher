@@ -43,6 +43,9 @@ gem 'devise'
 # For layout and helpers generation
 gem 'nifty-generators', :group => :development
 
+# For console progress feedback
+gem 'progress_bar'
+
 # For uploading files
 gem 'paperclip'
 
@@ -55,11 +58,9 @@ gem 'acts_as_tree'
 gem 'deep_cloning', '~> 2.0.0'
 
 # for full text indexing of site and documents (paperclip attachments, in our case)
+gem 'sunspot'
 gem 'sunspot_rails'
-gem 'progress_bar'
+gem 'sunspot_solr'
 
-group :development do
-   gem 'sunspot_solr'
-end
 
 

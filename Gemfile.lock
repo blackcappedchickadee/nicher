@@ -157,6 +157,7 @@ DEPENDENCIES
   progress_bar
   rails (= 3.2.1)
   sass-rails (~> 3.2.3)
+  sunspot
   sunspot_rails
   sunspot_solr
   uglifier (>= 1.0.3)
